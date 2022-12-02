@@ -21,8 +21,10 @@ const Wrapper = styled.div<BoardProps>`
    gap: 2px;
 
    background-color: hsl(0deg, 0%, 83%);
+
+   margin: 1rem;
 `;
-export const Tile = styled.div`
+const Tile = styled.div`
    width: 60px;
    aspect-ratio: 1;
    display: grid;

@@ -16,24 +16,26 @@ const StyledTurnIndicator = styled.div`
    border-radius: .5rem;
    border: 1px solid grey;
    background-color: white;
-   bottom: -.5rem;
+   bottom: -1rem;
    
 `
 const PlayerCard = styled.div<{ isTurn?: boolean }>`
    width: 5rem;
-   height: 7rem;
-   border: 1px solid lightgrey;
+   height: 5rem;
+
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
+
    color: hsl(0deg, 0%, 50%);
-   border-radius: .5rem;
-   background-color: white;
 
+   /* Position layout to allow turn indicator pill to anchor */
    position: relative;
-   filter: drop-shadow(3px 3px 8px hsl(0deg, 0%, 50%, .5));
 
+   border-radius: .5rem;
+
+   /* Extra turn indicator */
    ${props => props.isTurn ? css`outline: 2px solid goldenrod` : null}
 `
 const Versus = styled.span`
@@ -44,8 +46,6 @@ const Versus = styled.span`
 const PlayerLabel = styled.span`
    font-size: xx-large;
    font-weight: 700;
-   text-shadow: 2px 4px 8px hsl(0deg 0% 0% / 0.25);
-   
 `
 
 export default function PlayerTurnView({ gameState }) {
