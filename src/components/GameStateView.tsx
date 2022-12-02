@@ -5,22 +5,21 @@ import { GameState } from "../App"
  * Display the state of the game
  */
 const GameStateContainer = styled.div`
-   border: 1px solid hsl(0deg 0% 70%);
-   border-radius: .5rem;
-   width: 30rem;
-
-   background: white;
+   
    margin: 1rem;
 
    & h2 {
       text-align: center;
    }
+
+   @media (max-width: 25rem) {
+      width: auto;
+   }
 `
-export default function GameStateView({ gameState, children }) {
+export default function GameStateView({ gameState }) {
    return (
       <GameStateContainer>
          <h2>{gameStateMessage(gameState)}</h2>
-         {children}
       </GameStateContainer>
    )
 }

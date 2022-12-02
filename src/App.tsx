@@ -10,7 +10,7 @@ import PlayerTurnView from './components/PlayerTurnView';
 
 import { GlobalStyles } from './styles/GlobalStyles';
 
-// Local storage key should be unique
+// Local storage keys should be unique
 const APP_NAME = 'noughts-and-crosses'
 const VERSION = "0.0.1"
 const PREFIX = `${APP_NAME}--${VERSION}`
@@ -18,11 +18,8 @@ const SAVEKEY_BOARD = `${PREFIX}--BOARD`
 const SAVEKEY_GAME_STATE = `${PREFIX}--GAME_STATE`
 
 export type GameOverState = "winnerX" | "winnerO" | "draw" | null; // null means game not over
-export type GameState =
-   // either turn states:
-   "X" | "O" |
-   // or game over states:
-   GameOverState
+export type Turn = "X" | "O";
+export type GameState = GameOverState | Turn
 
 // Supported board sizes: '3x3' | '4x4' | '5x5' | '6x6'
 export type BoardSize = 3 | 4 | 5 | 6;
@@ -30,20 +27,54 @@ export const MIN_BOARD_SIZE = 3
 export const MAX_BOARD_SIZE = 6
 export const DEFAULT_BOARD_SIZE: BoardSize = 3
 
-export type Turn = "X" | "O";
-
 export function isGameOver(gameState: GameState) {
    return gameState === 'draw' || gameState === 'winnerO' || gameState === 'winnerX'
 }
 
 const Wrapper = styled.main`
-   max-width: 400px;
-   margin: auto; /* center this block */
-   height: 100%;
+   width: auto;
+   height: auto;
+   max-width: 25rem; /* 400px */
+
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
+
+   padding: 1rem;
+   background-color: white;
+
+   border-radius: .5rem;
+   border: 4px solid grey;
+
+   @media (max-width: 25rem) {
+      max-width: unset;
+      width: 100%;
+      height: 100%;
+      border-radius: 0;
+   }
+
+   --shadow-elevation-medium:
+   0.3px 0.9px 1.1px hsl(var(--shadow-color) / 0.35),
+    0.9px 2.8px 3.3px -0.8px hsl(var(--shadow-color) / 0.36),
+    2.3px 7px 8.3px -1.6px hsl(var(--shadow-color) / 0.36),
+    5.5px 17.1px 20.3px -2.4px hsl(var(--shadow-color) / 0.36);
+
+   --shadow-elevation-high:
+    0.3px 0.5px 0.6px hsl(var(--shadow-color) / 0.42),
+    1.2px 2.3px 2.7px -0.4px hsl(var(--shadow-color) / 0.4),
+    2.2px 4.5px 5.1px -0.9px hsl(var(--shadow-color) / 0.38),
+    3.9px 7.8px 9px -1.3px hsl(var(--shadow-color) / 0.36),
+    6.6px 13.1px 15.1px -1.8px hsl(var(--shadow-color) / 0.34),
+    10.7px 21.3px 24.5px -2.2px hsl(var(--shadow-color) / 0.31),
+    16.7px 33.4px 38.4px -2.7px hsl(var(--shadow-color) / 0.29),
+    25px 50px 57.4px -3.1px hsl(var(--shadow-color) / 0.27);
+
+    /* Source: Josh Comeau shadow generator: https://www.joshwcomeau.com/shadow-palette/ */
+   box-shadow: var(--shadow-elevation-medium);
+`
+const Title = styled.h1`
+   padding: 0 1rem;
 `
 
 function App() {
@@ -127,14 +158,18 @@ function App() {
 
    return (
       <Wrapper>
-         <h1>Noughts and Crosses</h1>
+         <Title>Noughts & Crosses</Title>
          <PlayerTurnView {...{ gameState }} />
-         <GameStateView {...{ gameState }} >
-            <GameControls {...{ gameState, resetEverything, forfeitGame, newGame, expandBoard, shrinkBoard }} />
-         </GameStateView>
+         <GameStateView {...{ gameState }} />
+         <GameControls {...{
+            gameState, resetEverything,
+            forfeitGame, newGame,
+            expandBoard, shrinkBoard
+         }} />
          {<BoardView {...{ board, clickTile }} />}
          <GlobalStyles />
       </Wrapper>
    );
 }
+
 export default App;

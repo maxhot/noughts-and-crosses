@@ -2,7 +2,13 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
    #root {
-      background-color: hsl(349, 0%, 90%);
+      --bg-color: 0deg 0% 90%;
+      --shadow-color: 0deg 0% 56%;
+      background-color: hsl(var(--bg-color));
+
+      /* use flexbox to center main app */
+      display: grid;
+      place-items: center;
    }
    body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
