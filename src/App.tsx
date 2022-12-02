@@ -7,7 +7,6 @@ import BoardView from './components/BoardView';
 import GameControls from './components/GameControls';
 import GameStateView from './components/GameStateView';
 import PlayerTurnView from './components/PlayerTurnView';
-
 import { GlobalStyles } from './styles/GlobalStyles';
 
 // Local storage keys should be unique
@@ -19,6 +18,8 @@ const SAVEKEY_GAME_STATE = `${PREFIX}--GAME_STATE`
 
 export type GameOverState = "winnerX" | "winnerO" | "draw" | null; // null means game not over
 export type Turn = "X" | "O";
+
+// All possible game states--either it's game over or it's someone's turn:
 export type GameState = GameOverState | Turn
 
 // Supported board sizes: '3x3' | '4x4' | '5x5' | '6x6'
@@ -32,10 +33,6 @@ export function isGameOver(gameState: GameState) {
 }
 
 const Wrapper = styled.main`
-   width: auto;
-   height: auto;
-   max-width: 25rem; /* 400px */
-
    display: flex;
    flex-direction: column;
    justify-content: center;
@@ -60,18 +57,9 @@ const Wrapper = styled.main`
     2.3px 7px 8.3px -1.6px hsl(var(--shadow-color) / 0.36),
     5.5px 17.1px 20.3px -2.4px hsl(var(--shadow-color) / 0.36);
 
-   --shadow-elevation-high:
-    0.3px 0.5px 0.6px hsl(var(--shadow-color) / 0.42),
-    1.2px 2.3px 2.7px -0.4px hsl(var(--shadow-color) / 0.4),
-    2.2px 4.5px 5.1px -0.9px hsl(var(--shadow-color) / 0.38),
-    3.9px 7.8px 9px -1.3px hsl(var(--shadow-color) / 0.36),
-    6.6px 13.1px 15.1px -1.8px hsl(var(--shadow-color) / 0.34),
-    10.7px 21.3px 24.5px -2.2px hsl(var(--shadow-color) / 0.31),
-    16.7px 33.4px 38.4px -2.7px hsl(var(--shadow-color) / 0.29),
-    25px 50px 57.4px -3.1px hsl(var(--shadow-color) / 0.27);
+   box-shadow: var(--shadow-elevation-medium);
 
     /* Source: Josh Comeau shadow generator: https://www.joshwcomeau.com/shadow-palette/ */
-   box-shadow: var(--shadow-elevation-medium);
 `
 const Title = styled.h1`
    padding: 0 1rem;

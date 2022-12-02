@@ -5,9 +5,9 @@ import { GameState } from "../App"
  * Display the state of the game
  */
 const GameStateContainer = styled.div`
-   
    margin: 1rem;
 
+   /* Center game state message */
    & h2 {
       text-align: center;
    }
